@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/source/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="../css/bootstrap.css"> -->
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Bosh sahifa</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/tests/create/question">Savol yaratish</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/tests/start-test/question">Test ishlash</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/tests/list/question">Savollarni ko'rish</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/logout">Tizimdan chiqish</a>
+                </li>
+                <form class="d-flex" action="/tests/list-by-name/question" role="search">
+                    <input class="form-control me-2" type="search" name="name" required placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Qidirish</button>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<div class="card">
+    <div class="card-body">
+        <style>
+            th,td{
+                text-align: center;
+            }
+        </style>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><h3>Savol</h3></th>
+                    <th><h3>To'g'ri javobi</h3></th>
+                    <th><h3>1-variant</h3></th>
+                    <th><h3>2-variant</h3></th>
+                    <th><h3>3-variant</h3></th>
+                    <th><h3>#</h3></th>
+                    <th><h3>#</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="q :${questions}">
+                    <form action="/tests/update/question" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                        <td>    
+                        <input type="hidden" name="id" th:value="${q.id}">
+                        <input type="text" class="form-control" name="text" th:value="${q.text}" placeholder="Savol kiriting" required>
+                        </td>
+
+                        <td>
+                        <input type="hidden" name="answerId" th:value="${q.answerId}">
+                        <input type="text" class="form-control" name="answer" th:value="${q.answer}" placeholder="Javob kiriting" required>
+                        </td>
+
+                        <td>
+                        <input type="hidden" name="variantOneId" th:value="${q.variantOneId}">
+                        <input type="text" class="form-control" name="variant1" th:value="${q.variant1}" required>
+                        </td>
+                        
+                        <td>
+                        <input type="hidden" name="variantTwoId" th:value="${q.variantTwoId}">
+                        <input type="text" class="form-control" name="variant2" th:value="${q.variant2}" required>
+                        </td>
+                        
+                        <td>
+                        <input type="hidden" name="variantThreeId" th:value="${q.variantThreeId}">
+                        <input type="text" class="form-control" name="variant3" th:value="${q.variant3}" required>
+                        </td>
+
+                        <td>
+                        <input type="submit" class="btn btn-success" value="Saqlash">
+                        </td>
+                    </form>
+                    <td>
+                        <form action="/tests/delete/question" method="post" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                            <input type="hidden" name="id" th:value="${q.id}">
+                            <input type="submit" class="btn btn-danger" value="O'chirish">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

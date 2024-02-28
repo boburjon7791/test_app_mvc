@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/source/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="../css/bootstrap.css"> -->
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Bosh sahifa</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/tests/create/question">Savol yaratish</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/tests/start-test/question">Test ishlash</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/tests/list/question">Savollarni ko'rish</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"  aria-current="page" href="/logout">Tizimdan chiqish</a>
+                </li>
+                <form class="d-flex" action="/tests/list-by-name/question" role="search">
+                    <input class="form-control me-2" type="search" name="name" required placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Qidirish</button>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<style>
+    .card,.form-control{
+        border-color: #198754; /* Rangni o'zgartiring */
+    }
+</style>
+<div class="position-absolute top-50 start-50 translate-middle">
+    <div class="card">
+        <div class="card-body">
+            <form action="/tests/update/question" method="post" enctype="application/x-www-form-urlencoded">
+                <h1 style="color: #198754">Savol haqida</h1>
+                <input type="hidden" name="id" th:value="${question.id}">
+                <label>Savol</label>
+                <input class="form-control w-auto" name="text" th:value="${question.text}" type="text" required placeholder="Savol kiriting">
+                <br>
+                <input type="hidden" name="answerId" th:value="${question.answerId}">
+                <label>Javob</label>
+                <input class="form-control w-auto" type="text" name="answer" th:value="${question.answer}" required placeholder="Javob kiriting">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <br>
+                <input class="form-control w-auto" type="text" name="variant1" th:value="${question.}">
+                <input type="submit" class="btn btn-success" value="Saqlash">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
